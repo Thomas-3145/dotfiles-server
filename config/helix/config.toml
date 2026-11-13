@@ -1,0 +1,26 @@
+theme = "dracula"
+
+[editor]
+line-number = "absolute"
+mouse = true
+bufferline = "multiple"
+
+[editor.soft-wrap]
+enable = true
+
+[editor.indent-guides]
+render = true
+
+[editor.cursor-shape]
+normal = "block"
+select = "underline"
+insert = "bar"
+
+[keys.normal]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+
+[keys.insert]
+j = { k = "normal_mode" }

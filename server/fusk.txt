@@ -1,0 +1,33 @@
+# fusk.txt för servern — samma format som zsh/fusk.txt, bara det som finns i server/.zshrc.
+# Format:  <kommando + argument> <TAB> <beskrivning>   [Rubrik] = sektion
+
+[Git]
+gb	git fetch + visa alla branches
+gpl	git pull (rebase + autostash)
+gs	git status (branch + filer)
+gsw [namn]	fuzzy-välj branch / byt / skapa
+ga <fil>	git add — explicit, säkert
+gaa	git add -A (hela repot) — akta i grupprojekt
+gcm <text>	git commit -m
+gp	fetch + rebasa på main + pusha (bara om det finns commits)
+gsync	byt till main + pull + prune + lista
+greview	status + staged diff (granska innan commit)
+gdone <branch>	städa efter merge (main + pull + radera branch)
+gundo	ångra senaste commit (behåller ändringar)
+git lg	historikgraf över alla branches
+
+[Filer & navigering]
+ll / la	eza-lista (la = med dolda), visar git-status
+tree [djup]	träd, 2 nivåer som standard
+md <namn>	skapa mapp och gå in i den
+z <dir>	hoppa till mapp (zoxide)
+zi	fuzzy-välj mapp (zoxide)
+fd <mönster>	hitta filer
+rg <mönster>	sök innehåll
+Ctrl-R / Ctrl-T / Alt-C	fzf: historik / infoga fil / cd till mapp
+
+[Övrigt]
+glow <fil.md>	rendera markdown i terminalen
+tldr <kommando>	korta exempel
+yq / jq	YAML / JSON
+reload	ladda om .zshrc
