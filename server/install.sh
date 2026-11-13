@@ -81,9 +81,28 @@ EOF
     echo "skapad  ~/.gitconfig.local — fyll i namn och mejl"
 fi
 
-if [[ "$(getent passwd "$USER" | cut -d: -f7)" != "$(command -v zsh)" ]]; then
-    echo "== Byter login-skal till zsh =="
-    chsh -s "$(command -v zsh)"
+# bash startar zsh i stället för chsh: på servrar med AD/LDAP-konton får man inte byta skal.
+if ! grep -q 'exec zsh' "$HOME/.bashrc" 2>/dev/null; then
+    echo '[[ $- == *i* ]] && command -v zsh >/dev/null && exec zsh -l' >> "$HOME/.bashrc"
+    echo "tillagt ~/.bashrc startar zsh"
+fi
+
+# Super+T → WezTerm (samma som config/gnome/media-keys.dconf hemma). Bara med GNOME-skrivbord.
+mk=org.gnome.settings-daemon.plugins.media-keys
+if command -v gsettings >/dev/null && [[ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]]; then
+    p=/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/wezterm/
+    list="$(gsettings get $mk custom-keybindings)"
+    if [[ "$list" == *"$p"* ]]; then
+        :
+    elif [[ "$list" == "@as []" || "$list" == "[]" ]]; then
+        gsettings set $mk custom-keybindings "['$p']"
+        gsettings set "$mk.custom-keybinding:$p" name 'WezTerm'
+        gsettings set "$mk.custom-keybinding:$p" command 'wezterm'
+        gsettings set "$mk.custom-keybinding:$p" binding '<Super>t'
+        echo "genväg  Super+T → wezterm"
+    else
+        echo "OBS: egna genvägar finns redan, lägg Super+T → wezterm för hand (Inställningar → Tangentbord)."
+    fi
 fi
 
 echo
