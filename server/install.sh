@@ -69,6 +69,7 @@ link server/.gitconfig           "$HOME/.gitconfig"
 link git/.gitignore_global       "$HOME/.gitignore_global"
 link zsh/.dir_colors             "$HOME/.dir_colors"
 link config/helix/config.toml    "$HOME/.config/helix/config.toml"
+link config/wezterm/.wezterm.lua "$HOME/.wezterm.lua"
 
 if [[ ! -e "$HOME/.gitconfig.local" ]]; then
     cat > "$HOME/.gitconfig.local" <<'EOF'
